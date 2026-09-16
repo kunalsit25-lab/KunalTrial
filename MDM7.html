@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Campus FAQ Hub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+
+        .sidebar {
+            width: 240px;
+            background: #172554;
+            color: white;
+            padding: 30px 20px;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 45px;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        .menu-title {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu li {
+            padding: 13px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #cbd5e1;
+        }
+
+        .menu li:hover,
+        .menu li.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* Main */
+
+        .main {
+            margin-left: 240px;
+            width: calc(100% - 240px);
+            padding: 45px 7%;
+        }
+
+        .top-label {
+            color: #2563eb;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 48px;
+            max-width: 700px;
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+
+        .intro {
+            color: #64748b;
+            max-width: 650px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Search */
+
+        .search-box {
+            background: white;
+            border: 1px solid #dbe2ea;
+            border-radius: 12px;
+            padding: 17px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 750px;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.06);
+            margin-bottom: 30px;
+        }
+
+        .search-box span {
+            font-size: 20px;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 15px;
+        }
+
+        /* Categories */
+
+        .categories {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .category {
+            border: 1px solid #cbd5e1;
+            background: white;
+            padding: 9px 17px;
+            border-radius: 20px;
+            cursor: pointer;
+            color: #475569;
+        }
+
+        .category:hover,
+        .category.selected {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        /* FAQ */
+
+        .faq-section {
+            max-width: 850px;
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin-bottom: 14px;
+            overflow: hidden;
+        }
+
+        .question {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .question:hover {
+            background: #f8fafc;
+        }
+
+        .arrow {
+            color: #2563eb;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+
+        .answer {
+            display: none;
+            padding: 0 20px 20px;
+            color: #64748b;
+            line-height: 1.6;
+            border-top: 1px solid #eef2f7;
+            padding-top: 16px;
+        }
+
+        .faq-item.open .answer {
+            display: block;
+        }
+
+        .faq-item.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Bottom Card */
+
+        .help-box {
+            max-width: 850px;
+            margin-top: 35px;
+            background: #dbeafe;
+            border-radius: 15px;
+            padding: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .help-box h2 {
+            margin-bottom: 7px;
+        }
+
+        .help-box p {
+            color: #475569;
+        }
+
+        .help-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .help-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .help-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            Campus<span>Hub</span>
+        </div>
+
+        <div class="menu-title">
+            Navigation
+        </div>
+
+        <ul class="menu">
+            <li class="active">FAQ Home</li>
+            <li>Academics</li>
+            <li>Admissions</li>
+            <li>Fees</li>
+            <li>Campus Life</li>
+            <li>Contact</li>
+        </ul>
+
+    </aside>
+
+
+    <!-- Main Content -->
+
+    <main class="main">
+
+        <div class="top-label">
+            CAMPUS FAQ HUB
+        </div>
+
+        <h1>
+            Everything you need to know about campus.
+        </h1>
+
+        <p class="intro">
+            Find quick and useful answers about academics, admissions,
+            fees, campus facilities and student activities.
+        </p>
+
+
+        <!-- Search -->
+
+        <div class="search-box">
+
+            <span>⌕</span>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search for a question..."
+            >
+
+        </div>
+
+
+        <!-- Categories -->
+
+        <div class="categories">
+
+            <button class="category selected" onclick="filterFAQ('all', this)">
+                All
+            </button>
+
+            <button class="category" onclick="filterFAQ('academic', this)">
+                Academics
+            </button>
+
+            <button class="category" onclick="filterFAQ('admission', this)">
+                Admissions
+            </button>
+
+            <button class="category" onclick="filterFAQ('fees', this)">
+                Fees
+            </button>
+
+            <button class="category" onclick="filterFAQ('campus', this)">
+                Campus
+            </button>
+
+        </div>
+
+
+        <!-- FAQ -->
+
+        <section class="faq-section">
+
+            <div class="faq-item" data-category="academic">
+
+                <div class="question" onclick="toggleFAQ(this)">
+                    <span>How can I check my class timetable?</span>
+                    <span class="arrow">⌄</span>
+                </div>
+
+                <div class="answer">
+                    Students can check their latest class timetable through
+                    the college academic portal or department notice board.
+                </div>
+
+            </div>
+
+
+            <div class="faq-item" data-category="admission">
+
+                <div class="question" onclick="toggleFAQ(this)">
+                    <span>What documents are required for admission?</span>
+                    <span class="arrow">⌄</span>
+                </div>
+
+                <div class="answer">
+                    Common documents include academic certificates,
+                    identification proof, photographs and other documents
+                    specified by the college during admission.
+                </div>
+
+            </div>
+
+
+            <div class="faq-item" data-category="fees">
+
+                <div class="question" onclick="toggleFAQ(this)">
+                    <span>Where can I find information about college fees?</span>
+                    <span class="arrow">⌄</span>
+                </div>
+
+                <div class="answer">
+                    Fee details can be obtained from the official college
+                    office or student portal.
+                </div>
+
+            </div>
+
+
+            <div class="faq-item" data-category="campus">
+
+                <div class="question" onclick="toggleFAQ(this)">
+                    <span>What facilities are available on campus?</span>
+                    <span class="arrow">⌄</span>
+                </div>
+
+                <div class="answer">
+                    Campus facilities may include laboratories, library,
+                    sports areas, classrooms, cafeterias and student activity
+                    spaces.
+                </div>
+
+            </div>
+
+
+            <div class="faq-item" data-category="academic">
+
+                <div class="question" onclick="toggleFAQ(this)">
+                    <span>Where can I access study materials?</span>
+                    <span class="arrow">⌄</span>
+                </div>
+
+                <div class="answer">
+                    Study materials can usually be accessed through the
+                    college learning portal, department resources or faculty.
+                </div>
+
+            </div>
+
+
+            <div class="faq-item" data-category="campus">
+
+                <div class="question" onclick="toggleFAQ(this)">
+                    <span>How can I participate in college events?</span>
+                    <span class="arrow">⌄</span>
+                </div>
+
+                <div class="answer">
+                    Students can participate by registering through event
+                    announcements, student clubs or the respective department.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Help -->
+
+        <div class="help-box">
+
+            <div>
+                <h2>Still need help?</h2>
+                <p>Contact your department for additional information.</p>
+            </div>
+
+            <button class="help-btn" onclick="contactDepartment()">
+                Contact Department
+            </button>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    function toggleFAQ(element) {
+
+        const item = element.parentElement;
+
+        item.classList.toggle("open");
+
+    }
+
+
+    function filterFAQ(category, button) {
+
+        const items = document.querySelectorAll(".faq-item");
+
+        const buttons = document.querySelectorAll(".category");
+
+        buttons.forEach(btn => {
+            btn.classList.remove("selected");
+        });
+
+        button.classList.add("selected");
+
+        items.forEach(item => {
+
+            if (category === "all" ||
+                item.dataset.category === category) {
+
+                item.style.display = "block";
+
+            } else {
+
+                item.style.display = "none";
+
+            }
+
+        });
+
+    }
+
+
+    document.getElementById("searchInput").addEventListener("input", function() {
+
+        const searchText = this.value.toLowerCase();
+
+        const items = document.querySelectorAll(".faq-item");
+
+        items.forEach(item => {
+
+            const question =
+                item.querySelector(".question").innerText.toLowerCase();
+
+            if (question.includes(searchText)) {
+
+                item.style.display = "block";
+
+            } else {
+
+                item.style.display = "none";
+
+            }
+
+        });
+
+    });
+
+
+    function contactDepartment() {
+
+        alert("Please contact your college department office for assistance.");
+
+    }
+
+</script>
+
+</body>
+</html>
