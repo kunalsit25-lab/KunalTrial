@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kunal Sonune</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #4facfe, #6a5acd);
+        }
+
+        .container {
+            width: 420px;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header .icon {
+            width: 65px;
+            height: 65px;
+            margin: auto;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4facfe, #6a5acd);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        h2 {
+            margin-top: 12px;
+            color: #333;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .input-box {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #4facfe;
+            box-shadow: 0 0 5px rgba(79,172,254,0.4);
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #4facfe, #6a5acd);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(79,172,254,0.35);
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #888;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div class="icon">🎓</div>
+
+            <h2>Student Registration</h2>
+
+            <p class="subtitle">
+                College Admission Portal
+            </p>
+        </div>
+
+        <form onsubmit="return validateForm()">
+
+            <div class="input-box">
+                <label>Full Name</label>
+                <input type="text" id="name"
+                       placeholder="Enter your full name">
+            </div>
+
+            <div class="input-box">
+                <label>Email Address</label>
+                <input type="text" id="email"
+                       placeholder="example@gmail.com">
+            </div>
+
+            <div class="input-box">
+                <label>Password</label>
+                <input type="password" id="password"
+                       placeholder="Minimum 6 characters">
+            </div>
+
+            <div class="input-box">
+                <label>Mobile Number</label>
+                <input type="text" id="mobile"
+                       placeholder="Enter 10 digit mobile number">
+            </div>
+
+            <button type="submit">
+                Register Now
+            </button>
+
+            <p id="message"></p>
+
+        </form>
+
+        <div class="footer">
+            © 2026 College Admission Portal
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function validateForm() {
+
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let password = document.getElementById("password").value;
+            let mobile = document.getElementById("mobile").value.trim();
+
+            let message = document.getElementById("message");
+
+
+            // 1. Mandatory field validation
+
+            if (name === "" || email === "" ||
+                password === "" || mobile === "") {
+
+                message.innerHTML = "⚠ Please fill all fields.";
+                message.style.color = "red";
+
+                return false;
+            }
+
+
+            // 2. Email validation
+
+            let emailPattern =
+                /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+            if (!emailPattern.test(email)) {
+
+                message.innerHTML =
+                    "⚠ Please enter a valid email address.";
+
+                message.style.color = "red";
+
+                return false;
+            }
+
+
+            // 3. Password validation
+
+            if (password.length < 6) {
+
+                message.innerHTML =
+                    "⚠ Password must contain at least 6 characters.";
+
+                message.style.color = "red";
+
+                return false;
+            }
+
+
+            // 4. Mobile number validation
+
+            let mobilePattern = /^[0-9]{10}$/;
+
+            if (!mobilePattern.test(mobile)) {
+
+                message.innerHTML =
+                    "⚠ Mobile number must contain exactly 10 digits.";
+
+                message.style.color = "red";
+
+                return false;
+            }
+
+
+            // Successful registration
+
+            message.innerHTML =
+                "✓ Registration Successful!";
+
+            message.style.color = "green";
+
+            return false;
+        }
+
+    </script>
+
+</body>
+</html>
