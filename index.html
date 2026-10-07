@@ -3,254 +3,428 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Kunal Sonune</title>
 
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
 
         body {
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #4facfe, #6a5acd);
-        }
-
-        .container {
-            width: 420px;
-            background: white;
-            padding: 30px;
-            border-radius: 18px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .header .icon {
-            width: 65px;
-            height: 65px;
-            margin: auto;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #4facfe, #6a5acd);
+            background: #0f172a;
             color: white;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 1050px;
+            min-height: 650px;
+            display: flex;
+            background: #111827;
+            border: 1px solid #263244;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.45);
+        }
+
+        .sidebar {
+            width: 230px;
+            background: #0b1220;
+            padding: 35px 22px;
+            border-right: 1px solid #263244;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 45px;
+        }
+
+        .logo span {
+            color: #38bdf8;
+        }
+
+        .menu p {
+            color: #7f8ca3;
+            font-size: 13px;
+            margin: 20px 10px 10px;
+        }
+
+        .menu button {
+            width: 100%;
+            padding: 13px;
+            margin: 4px 0;
+            background: transparent;
+            color: #cbd5e1;
+            border: none;
+            border-radius: 10px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .menu button:hover,
+        .menu .active {
+            background: #172338;
+            color: #38bdf8;
+        }
+
+        .main {
+            flex: 1;
+            padding: 38px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top h1 {
             font-size: 30px;
         }
 
-        h2 {
+        .top p {
+            color: #7f8ca3;
+            margin-top: 8px;
+        }
+
+        .date {
+            color: #38bdf8;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 35px 0 25px;
+        }
+
+        .stat {
+            background: #172033;
+            border: 1px solid #263244;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .stat small {
+            color: #7f8ca3;
+        }
+
+        .stat h2 {
+            margin-top: 8px;
+            font-size: 28px;
+        }
+
+        .progress {
             margin-top: 12px;
-            color: #333;
+            height: 5px;
+            background: #273449;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
-        .subtitle {
-            color: #777;
-            font-size: 14px;
-            margin-top: 5px;
+        .progress div {
+            width: 35%;
+            height: 100%;
+            background: #38bdf8;
         }
 
-        .input-box {
-            margin-bottom: 17px;
+        .add-box {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 7px;
-            color: #333;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            outline: none;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        input:focus {
-            border-color: #4facfe;
-            box-shadow: 0 0 5px rgba(79,172,254,0.4);
-        }
-
-        button {
-            width: 100%;
-            padding: 13px;
-            border: none;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #4facfe, #6a5acd);
+        .add-box input {
+            flex: 1;
+            padding: 16px;
+            background: #0b1220;
+            border: 1px solid #334155;
+            border-radius: 12px;
             color: white;
-            font-size: 16px;
+            outline: none;
+        }
+
+        .add-box input:focus {
+            border-color: #38bdf8;
+        }
+
+        .add-box button {
+            padding: 0 25px;
+            border: none;
+            border-radius: 12px;
+            background: #38bdf8;
+            color: #07111f;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 18px rgba(79,172,254,0.35);
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
         }
 
-        #message {
-            text-align: center;
-            margin-top: 18px;
-            font-size: 14px;
-            font-weight: bold;
+        .section-title span {
+            color: #64748b;
+            font-size: 13px;
         }
 
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #888;
-            font-size: 12px;
+        .tasks {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .task {
+            display: flex;
+            align-items: center;
+            padding: 17px;
+            background: #151f30;
+            border: 1px solid #263244;
+            border-radius: 13px;
+            transition: 0.2s;
+        }
+
+        .task:hover {
+            transform: translateX(4px);
+            border-color: #38bdf8;
+        }
+
+        .task input {
+            width: 18px;
+            height: 18px;
+            margin-right: 15px;
+            accent-color: #38bdf8;
+        }
+
+        .task-name {
+            flex: 1;
+            color: #dbeafe;
+        }
+
+        .delete {
+            border: none;
+            background: #2a1820;
+            color: #fb7185;
+            padding: 8px 11px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #64748b;
+        }
+
+        @media(max-width: 750px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                padding: 25px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .top {
+                display: block;
+            }
+
+            .date {
+                display: block;
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
+    <div class="app">
 
-        <div class="header">
-            <div class="icon">🎓</div>
+        <aside class="sidebar">
+            <div class="logo">Task<span>Flow</span></div>
 
-            <h2>Student Registration</h2>
+            <div class="menu">
+                <p>WORKSPACE</p>
 
-            <p class="subtitle">
-                College Admission Portal
-            </p>
-        </div>
+                <button class="active">◉ My Tasks</button>
+                <button>★ Important</button>
+                <button>✓ Completed</button>
 
-        <form onsubmit="return validateForm()">
+                <p>LISTS</p>
 
-            <div class="input-box">
-                <label>Full Name</label>
-                <input type="text" id="name"
-                       placeholder="Enter your full name">
+                <button>▸ College</button>
+                <button>▸ Personal</button>
+                <button>▸ Projects</button>
+            </div>
+        </aside>
+
+
+        <main class="main">
+
+            <div class="top">
+                <div>
+                    <h1>My Tasks</h1>
+                    <p>Plan your day. Finish what matters.</p>
+                </div>
+
+                <div class="date">Wednesday, 7 October</div>
             </div>
 
-            <div class="input-box">
-                <label>Email Address</label>
-                <input type="text" id="email"
-                       placeholder="example@gmail.com">
+
+            <div class="stats">
+
+                <div class="stat">
+                    <small>Total Tasks</small>
+                    <h2 id="total">3</h2>
+                </div>
+
+                <div class="stat">
+                    <small>Completed</small>
+                    <h2 id="done">0</h2>
+                </div>
+
+                <div class="stat">
+                    <small>Progress</small>
+                    <h2 id="percent">0%</h2>
+
+                    <div class="progress">
+                        <div id="bar"></div>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="input-box">
-                <label>Password</label>
-                <input type="password" id="password"
-                       placeholder="Minimum 6 characters">
+
+            <div class="add-box">
+                <input id="taskInput" type="text"
+                    placeholder="Add a new task...">
+
+                <button onclick="addTask()">Add Task</button>
             </div>
 
-            <div class="input-box">
-                <label>Mobile Number</label>
-                <input type="text" id="mobile"
-                       placeholder="Enter 10 digit mobile number">
+
+            <div class="section-title">
+                <h3>Today's Tasks</h3>
+                <span id="count">3 tasks</span>
             </div>
 
-            <button type="submit">
-                Register Now
-            </button>
 
-            <p id="message"></p>
+            <div class="tasks" id="taskList">
 
-        </form>
+                <div class="task">
+                    <input type="checkbox" onchange="updateTasks()">
+                    <span class="task-name">Complete DSA assignment</span>
+                    <button class="delete" onclick="removeTask(this)">×</button>
+                </div>
 
-        <div class="footer">
-            © 2026 College Admission Portal
-        </div>
+                <div class="task">
+                    <input type="checkbox" onchange="updateTasks()">
+                    <span class="task-name">Practice Java OOP</span>
+                    <button class="delete" onclick="removeTask(this)">×</button>
+                </div>
+
+                <div class="task">
+                    <input type="checkbox" onchange="updateTasks()">
+                    <span class="task-name">Work on college project</span>
+                    <button class="delete" onclick="removeTask(this)">×</button>
+                </div>
+
+            </div>
+
+        </main>
 
     </div>
 
 
     <script>
 
-        function validateForm() {
+        function addTask() {
 
-            let name = document.getElementById("name").value.trim();
-            let email = document.getElementById("email").value.trim();
-            let password = document.getElementById("password").value;
-            let mobile = document.getElementById("mobile").value.trim();
+            let input = document.getElementById("taskInput");
+            let text = input.value.trim();
 
-            let message = document.getElementById("message");
-
-
-            // 1. Mandatory field validation
-
-            if (name === "" || email === "" ||
-                password === "" || mobile === "") {
-
-                message.innerHTML = "⚠ Please fill all fields.";
-                message.style.color = "red";
-
-                return false;
+            if (text === "") {
+                return;
             }
 
+            let task = document.createElement("div");
 
-            // 2. Email validation
+            task.className = "task";
 
-            let emailPattern =
-                /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+            task.innerHTML = `
+                <input type="checkbox" onchange="updateTasks()">
+                <span class="task-name">${text}</span>
+                <button class="delete" onclick="removeTask(this)">×</button>
+            `;
 
-            if (!emailPattern.test(email)) {
+            document.getElementById("taskList").appendChild(task);
 
-                message.innerHTML =
-                    "⚠ Please enter a valid email address.";
+            input.value = "";
 
-                message.style.color = "red";
-
-                return false;
-            }
-
-
-            // 3. Password validation
-
-            if (password.length < 6) {
-
-                message.innerHTML =
-                    "⚠ Password must contain at least 6 characters.";
-
-                message.style.color = "red";
-
-                return false;
-            }
+            updateTasks();
+        }
 
 
-            // 4. Mobile number validation
+        function removeTask(button) {
 
-            let mobilePattern = /^[0-9]{10}$/;
+            button.parentElement.remove();
 
-            if (!mobilePattern.test(mobile)) {
-
-                message.innerHTML =
-                    "⚠ Mobile number must contain exactly 10 digits.";
-
-                message.style.color = "red";
-
-                return false;
-            }
+            updateTasks();
+        }
 
 
-            // Successful registration
+        function updateTasks() {
 
-            message.innerHTML =
-                "✓ Registration Successful!";
+            let tasks = document.querySelectorAll(".task");
+            let completed = 0;
 
-            message.style.color = "green";
+            tasks.forEach(task => {
 
-            return false;
+                let checkbox = task.querySelector("input");
+                let name = task.querySelector(".task-name");
+
+                if (checkbox.checked) {
+                    completed++;
+                    name.classList.add("completed");
+                } else {
+                    name.classList.remove("completed");
+                }
+
+            });
+
+            let total = tasks.length;
+
+            document.getElementById("total").innerText = total;
+            document.getElementById("done").innerText = completed;
+
+            let percentage = total === 0
+                ? 0
+                : Math.round((completed / total) * 100);
+
+            document.getElementById("percent").innerText =
+                percentage + "%";
+
+            document.getElementById("bar").style.width =
+                percentage + "%";
+
+            document.getElementById("count").innerText =
+                total + (total === 1 ? " task" : " tasks");
         }
 
     </script>
